@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
   const STATION_ID = "b11498400cece45d";
-  const API_KEY = "a1b674d9bf1050396a4ca3137e5f7763";
+  const API_KEY = "a1b674d9bf1050396a4ca313";
 
   const url = `https://api.weathercloud.net/v2/weather/current/${STATION_ID}?key=${API_KEY}`;
 
