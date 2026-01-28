@@ -1,5 +1,5 @@
 export default async function handler(req, res) {
-  const STATION_ID = "TU_STATION_ID";
+  const STATION_ID = "b11498400cece45d";
   const API_KEY = "TU_API_KEY";
 
   const url = `https://api.weathercloud.net/v2/weather/current/${STATION_ID}?key=${API_KEY}`;
