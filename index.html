@@ -3,60 +3,84 @@
 <head>
   <meta charset="UTF-8">
   <title>Mi estación meteorológica</title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
       background: #eef2f5;
       padding: 40px;
     }
+
     .card {
       background: white;
-      padding: 20px;
+      padding: 25px;
       max-width: 420px;
       margin: auto;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
+
     h1 {
       text-align: center;
+      margin-bottom: 20px;
     }
+
     .dato {
       font-size: 1.1em;
-      margin: 10px 0;
+      margin: 12px 0;
+    }
+
+    .footer {
+      text-align: center;
+      color: #666;
+      font-size: 0.9em;
+      margin-top: 15px;
     }
   </style>
 </head>
+
 <body>
+
   <div class="card">
     <h1>🌦️ Mi estación</h1>
-<div class="dato">🌡️ Temperatura: <span id="temp">--</span> °C</div>
-<div class="dato">💧 Humedad: <span id="hum">--</span> %</div>
-<div class="dato">🌬️ Viento: <span id="wind">--</span> km/h</div>
-<div class="dato">🌧️ Lluvia hoy: <span id="rain">--</span> mm</div>
-<div class="dato">📉 Presión: <span id="press">--</span> hPa</div>
-    <p style="text-align:center; color:#666;">
+
+    <div class="dato">🌡️ Temperatura: <span id="temp">--</span> °C</div>
+    <div class="dato">💧 Humedad: <span id="hum">--</span> %</div>
+    <div class="dato">🌬️ Viento: <span id="wind">--</span> km/h</div>
+    <div class="dato">🌧️ Lluvia hoy: <span id="rain">--</span> mm</div>
+    <div class="dato">📉 Presión: <span id="press">--</span> hPa</div>
+
+    <div class="footer">
       Datos de estación meteorológica personal
-    </p>
+    </div>
   </div>
-<script>
-  const url = "/api/weather";
 
-  fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      const c = data.current;
+  <script>
+    // 👉 PON AQUÍ TUS DATOS
+    const STATION_ID = "TU_STATION_ID";
+    const API_KEY = "TU_API_KEY";
 
-      document.getElementById("temp").textContent = c.temp;
-      document.getElementById("hum").textContent = c.humidity;
-      document.getElementById("wind").textContent = c.wind_speed;
-      document.getElementById("rain").textContent = c.rain_day;
-      document.getElementById("press").textContent = c.pressure;
-})
-    .catch(error => {
-      console.error("Error cargando datos:", error);
-    });
-</script>
+    const weathercloudUrl =
+      `https://api.weathercloud.net/v2/weather/current/${STATION_ID}?key=${API_KEY}`;
 
+    const proxyUrl =
+      `https://api.allorigins.win/raw?url=${encodeURIComponent(weathercloudUrl)}`;
+
+    fetch(proxyUrl)
+      .then(response => response.json())
+      .then(data => {
+        const c = data.current;
+
+        document.getElementById("temp").textContent = c.temp;
+        document.getElementById("hum").textContent = c.humidity;
+        document.getElementById("wind").textContent = c.wind_speed;
+        document.getElementById("rain").textContent = c.rain_day;
+        document.getElementById("press").textContent = c.pressure;
+      })
+      .catch(error => {
+        console.error("Error cargando datos:", error);
+      });
+  </script>
 
 </body>
 </html>
