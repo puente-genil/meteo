@@ -29,14 +29,36 @@
 <body>
   <div class="card">
     <h1>🌦️ Mi estación</h1>
-    <div class="dato">🌡️ Temperatura: -- °C</div>
-    <div class="dato">💧 Humedad: -- %</div>
-    <div class="dato">🌬️ Viento: -- km/h</div>
-    <div class="dato">🌧️ Lluvia hoy: -- mm</div>
-    <div class="dato">📉 Presión: -- hPa</div>
+<div class="dato">🌡️ Temperatura: <span id="temp">--</span> °C</div>
+<div class="dato">💧 Humedad: <span id="hum">--</span> %</div>
+<div class="dato">🌬️ Viento: <span id="wind">--</span> km/h</div>
+<div class="dato">🌧️ Lluvia hoy: <span id="rain">--</span> mm</div>
+<div class="dato">📉 Presión: <span id="press">--</span> hPa</div>
     <p style="text-align:center; color:#666;">
       Datos de estación meteorológica personal
     </p>
   </div>
+<script>
+  // ⚠️ AQUÍ PONDREMOS TUS DATOS EN EL SIGUIENTE PASO
+  const STATION_ID = "b11498400cece45d";
+  const API_KEY = "a1b674d9bf1050396a4ca3137e5f7763";
+
+  const url = `https://api.weathercloud.net/v2/weather/current/${STATION_ID}?key=${API_KEY}`;
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      // Estos nombres vienen de WeatherCloud
+      document.getElementById("temp").textContent = data.temp;
+      document.getElementById("hum").textContent = data.humidity;
+      document.getElementById("wind").textContent = data.wind_speed;
+      document.getElementById("rain").textContent = data.rain_day;
+      document.getElementById("press").textContent = data.pressure;
+    })
+    .catch(error => {
+      console.error("Error cargando datos:", error);
+    });
+</script>
+
 </body>
 </html>
