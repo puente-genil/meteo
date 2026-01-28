@@ -44,12 +44,14 @@
   fetch(url)
     .then(response => response.json())
     .then(data => {
-      document.getElementById("temp").textContent = data.temp;
-      document.getElementById("hum").textContent = data.humidity;
-      document.getElementById("wind").textContent = data.wind_speed;
-      document.getElementById("rain").textContent = data.rain_day;
-      document.getElementById("press").textContent = data.pressure;
-    })
+      const c = data.current;
+
+      document.getElementById("temp").textContent = c.temp;
+      document.getElementById("hum").textContent = c.humidity;
+      document.getElementById("wind").textContent = c.wind_speed;
+      document.getElementById("rain").textContent = c.rain_day;
+      document.getElementById("press").textContent = c.pressure;
+})
     .catch(error => {
       console.error("Error cargando datos:", error);
     });
